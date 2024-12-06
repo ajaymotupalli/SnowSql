@@ -1,0 +1,9 @@
+create warehouse firstWH
+with
+warehouse_size = small
+max_warehouse_count = 3
+auto_suspend = 300
+auto_resume = True
+comment = "First Warehouse"
+
+Drop warehouse firstWH
