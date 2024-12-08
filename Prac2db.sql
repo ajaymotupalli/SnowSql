@@ -1,7 +1,7 @@
-CREATE DATABASE PracThreedb;
-USE PracThreedb;
-CREATE SCHEMA PracThreeSchema;
-USE PracThreeSchema;
+CREATE DATABASE PracTwodb;
+USE PracTwodb;
+-- CREATE SCHEMA PracTwoSchema;
+USE PracTwoSchema;
 
 CREATE TABLE users
 (
@@ -164,14 +164,14 @@ VALUES
 
 -- SELECT * FROM LOGINS;
 
--- Question) Display user id's that log-in in january 2024 and did not log-in on november 2023 ?
--- Return User_id
+-- Question) For the business units' quarterly analysis, calculate how many users and how many sessions were at each quarter ?
+-- Order by quarter from newest to oldest.
+-- Return : First day of the quarter, user_cnt, session_cnt. 
 
--- Answer :
+-- Answer) 
 
-Select distinct user_id
-from logins
-where login_timestamp between '2024-01-01' and '2024-01-31'
-    and user_id not in (select user_id
-    from logins
-    where login_timestamp between '2023-11-01' and '2023-11-30');
+SELECT DATE_TRUNC(quarter, MIN(LOGIN_TIMESTAMP) )as first_quarter_date,
+    count(*) as session_cnt,
+    COUNT(distinct USER_ID) as user_cnt
+FROM LOGINS
+GROUP BY DATE_PART(quarter, LOGIN_TIMESTAMP)

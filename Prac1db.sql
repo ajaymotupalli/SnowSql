@@ -1,7 +1,7 @@
-CREATE DATABASE PracTwodb;
-USE PracTwodb;
-CREATE SCHEMA PracTwoSchema;
-USE PracTwoSchema;
+CREATE DATABASE PracOnedb;
+USE PracOnedb;
+-- CREATE SCHEMA PracOneSchema;
+USE PracOneSchema;
 
 CREATE TABLE users
 (
@@ -81,8 +81,10 @@ INSERT INTO LOGINS
 VALUES
     (9, '2023-12-15 13:15:00', 1009, 79);
 
--- SELECT * FROM USERS;
--- SELECT * FROM LOGINS;
+SELECT *
+FROM USERS;
+SELECT *
+FROM LOGINS;
 
 INSERT INTO LOGINS
     (USER_ID, LOGIN_TIMESTAMP, SESSION_ID, SESSION_SCORE)
@@ -162,16 +164,25 @@ INSERT INTO LOGINS
 VALUES
     (6, '2023-11-15 11:00:00', 1203, 80);
 
--- SELECT * FROM LOGINS;
+SELECT *
+FROM LOGINS;
 
--- Question) For the business units' quarterly analysis, calculate how many users and how many sessions were at each quarter ?
--- Order by quarter from newest to oldest.
--- Return : First day of the quarter, user_cnt, session_cnt. 
+-- Question) Management wants to see all the users that didn't login in the past 5 months ?
+-- Return USER_ID
 
--- Answer) 
+-- Answer 1 :
 
-SELECT DATE_TRUNC(quarter, MIN(LOGIN_TIMESTAMP) )as first_quarter_date,
-    count(*) as session_cnt,
-    COUNT(distinct USER_ID) as user_cnt
+-- SELECT USER_ID, MAX(LOGIN_TIMESTAMP)
+-- FROM LOGINS
+-- Group By USER_ID
+-- having MAX(LOGIN_TIMESTAMP) < DATEADD(MONTH,-5,GETDATE())
+
+-- Answer 2 :
+
+SELECT DISTINCT USER_ID
 FROM LOGINS
-GROUP BY DATE_PART(quarter, LOGIN_TIMESTAMP)
+WHERE USER_ID NOT in
+(SELECT USER_ID
+FROM LOGINS
+WHERE LOGIN_TIMESTAMP > DATEADD(MONTH, -5, GETDATE())
+);

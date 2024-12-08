@@ -1,7 +1,7 @@
-CREATE DATABASE PracOnedb;
-USE PracOnedb;
-CREATE SCHEMA PracOneSchema;
-USE PracOneSchema;
+CREATE DATABASE PracThreedb;
+USE PracThreedb;
+-- CREATE SCHEMA PracThreeSchema;
+USE PracThreeSchema;
 
 CREATE TABLE users
 (
@@ -81,10 +81,8 @@ INSERT INTO LOGINS
 VALUES
     (9, '2023-12-15 13:15:00', 1009, 79);
 
-SELECT *
-FROM USERS;
-SELECT *
-FROM LOGINS;
+-- SELECT * FROM USERS;
+-- SELECT * FROM LOGINS;
 
 INSERT INTO LOGINS
     (USER_ID, LOGIN_TIMESTAMP, SESSION_ID, SESSION_SCORE)
@@ -164,25 +162,16 @@ INSERT INTO LOGINS
 VALUES
     (6, '2023-11-15 11:00:00', 1203, 80);
 
-SELECT *
-FROM LOGINS;
+-- SELECT * FROM LOGINS;
 
--- Question) Management wants to see all the users that didn't login in the past 5 months ?
--- Return USER_ID
+-- Question) Display user id's that log-in in january 2024 and did not log-in on november 2023 ?
+-- Return User_id
 
--- Answer 1 :
+-- Answer :
 
--- SELECT USER_ID, MAX(LOGIN_TIMESTAMP)
--- FROM LOGINS
--- Group By USER_ID
--- having MAX(LOGIN_TIMESTAMP) < DATEADD(MONTH,-5,GETDATE())
-
--- Answer 2 :
-
-SELECT DISTINCT USER_ID
-FROM LOGINS
-WHERE USER_ID NOT in
-(SELECT USER_ID
-FROM LOGINS
-WHERE LOGIN_TIMESTAMP > DATEADD(MONTH, -5, GETDATE())
-);
+Select distinct user_id
+from logins
+where login_timestamp between '2024-01-01' and '2024-01-31'
+    and user_id not in (select user_id
+    from logins
+    where login_timestamp between '2023-11-01' and '2023-11-30');
