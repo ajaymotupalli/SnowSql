@@ -1,3 +1,5 @@
+# FILE HANDLING - reading and writing (text/csv).
+
 # To read a file : 
 
 f = open("D:\SnowFlake\Python_Prac\HelloEveyone.txt", "r")
@@ -376,8 +378,28 @@ print(mytripler(11))
 
 # Consider the below examples for better understanding.
 
-# Example 1: Treating the functions as objects. 
+# Example 1: A Simple Decorator
 
+def simple_decorator(func):
+    def wrapper():
+        print("Before the function execution")
+        func()
+        print("After the function execution")
+    return wrapper
+
+@simple_decorator
+def say_hello():
+    print("Hello, world!")
+
+say_hello()
+
+# Output:
+
+# Before the function execution
+# Hello, world!
+# After the function execution
+
+# Example 2: Treating the functions as objects. 
 
 def shout(text): 
     return text.upper() 
@@ -427,3 +449,26 @@ print(result)
 # Output: 10
 
 # --------------------------------------------------------
+
+# Enumerator :
+
+# Python enumerate() Function
+
+# ExampleGet your own Python Server
+# Convert a tuple into an enumerate object:
+
+x = ('apple', 'banana', 'cherry')
+y = enumerate(x)
+
+# Definition and Usage
+# The enumerate() function takes a collection (e.g. a tuple) and returns it as an enumerate object.
+
+# The enumerate() function adds a counter as the key of the enumerate object.
+
+# Syntax:     enumerate(iterable, start)
+# Parameter Values : 
+
+# Parameter	Description
+
+# iterable	An iterable object
+# start	    A Number. Defining the start number of the enumerate object. Default 0
