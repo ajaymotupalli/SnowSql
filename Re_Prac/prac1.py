@@ -14,7 +14,9 @@ f = "https...twitter.com.([a-zA-Z0-9_]+)"
 matches = re.findall(f,text)
 print(matches)
 
-#----------------------------------------------------------------------------------------------------------
+# Output = ['elonmusk', 'teslarati', 'dummy_tesla', 'dummy_2_tesla']
+
+# ----------------------------------------------------------------------------------------------------------
 
 import re 
 text = '''
@@ -34,7 +36,9 @@ f = "C...........n .. ..... ([^\n]+)"
 match = re.findall(f,text)
 print(match)
 
-# ----------------------------------------------------------------
+# Output = ['Credit Risk', 'Supply Risk']
+
+# -------------------------------------------------------------------------------------------------------
 
 import re 
 text = '''
@@ -45,3 +49,5 @@ BMW's gross cost of operating vehicles in FY2021 S1 was $8 billion.
 f = "FY(\d{4}) ([A-Z0-9]+)"
 match = re.findall(f,text)
 print(match)
+
+# Output = [('2021', 'Q1'), ('2021', 'S1')]
