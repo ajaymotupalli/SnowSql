@@ -1,0 +1,68 @@
+Daily - Weekly - Monthly
+
+%python
+
+from datetime import date, timedelta, datetime
+
+dbutils.widgets.dropdown("time_period","weekly",['monthly','weekly','daily'])
+time_period = dbutils.widgets.get("time_period")
+
+today = date.today()
+last_year = today.replace(year=today.year - 1)
+
+
+if time_period == 'weekly' :
+    start_date = last_year - timedelta(days = last_year.weekday(), weeks = 1) - timedelta(days = 1)
+    end_date = start_date + timedelta(days = 6)
+
+elif time_period == 'monthly' :
+    first = last_year.replace(day = 1)
+    end_date = first - timedelta(days = 1)
+    start_date = first - timedelta(days = end_date.day)
+
+else :
+    start_date = last_year - timedelta(days = 1)
+    end_date = start_date
+
+display(spark.sql(f""" select sum(sale),city from sales where date between '{start_date}' and '{end_date}' group by city """))
+
+# result = spark.sql(query)
+
+# display(result)
+
+print(f"Start Date: {start_date}, End Date: {end_date}")
+# print(start_date,end_date)
+ ------------------------------------------------------------------------------------------------------------------
+
+%python
+
+from datetime import date, timedelta, datetime
+
+dbutils.widgets.dropdown("time_period","weekly",['monthly','weekly','daily'])
+time_period = dbutils.widgets.get("time_period")
+
+today = date.today()
+last_year = today.replace(year=today.year - 1)
+
+
+if time_period == 'weekly' :
+    start_date = last_year - timedelta(days = last_year.weekday(), weeks = 1) - timedelta(days = 110)
+    end_date = start_date + timedelta(days = 6)
+
+elif time_period == 'monthly' :
+    first = last_year.replace(day = 30).replace(month=10)
+    end_date = first - timedelta(days = 1)
+    start_date = first - timedelta(days = end_date.day)
+
+else :
+    start_date = last_year - timedelta(days = 110)
+    end_date = start_date
+
+display(spark.sql(f""" select sum(sale),city from sales where date between '{start_date}' and '{end_date}' group by city """))
+
+# result = spark.sql(query)
+
+# display(result)
+
+print(f"Start Date: {start_date}, End Date: {end_date}")
+# print(start_date,end_date)
