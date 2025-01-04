@@ -192,3 +192,20 @@ with
 select distinct department, salary, ranked_sal
 from rankedlist
 where ranked_sal <= 2;
+
+-- (or)
+
+with
+    rankedlist
+    as
+    (
+        select department,
+            salary,
+            rank() over (order by salary desc) as ranked_sal
+        from employees
+        where department = 'Engineering'
+        group by salary,department
+    )
+select department, salary, ranked_sal
+from rankedlist
+where ranked_sal <= 2;
